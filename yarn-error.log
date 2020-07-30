@@ -1,0 +1,52 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add exios
+
+PATH: 
+  /Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/Users/dongce/Library/Android/sdk/tools:/Users/dongce/Library/Android/sdk/platform-tools:/Users/dongce/environment/flutter/bin:/usr/local/mysql/bin:/usr/local/mysql/support-files:/usr/local/mongodb/bin:/usr/local/bin/yarn:/usr/local/bin/simple-scaffoliding:/Users/dongce/Library/Android/sdk/tools:/Users/dongce/Library/Android/sdk/platform-tools:/Users/dongce/environment/flutter/bin:/usr/local/mysql/bin:/usr/local/mysql/support-files:/usr/local/mongodb/bin:/usr/local/bin:/usr/local/bin/yarn:/usr/local/bin/simple-scaffoliding
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.13.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.npm.taobao.org/exios: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66987:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140748:22)
+      at Request.emit (events.js:210:5)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141720:10)
+      at Request.emit (events.js:210:5)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141642:12)
+      at Object.onceWrapper (events.js:299:28)
+      at IncomingMessage.emit (events.js:215:7)
+      at endReadableNT (_stream_readable.js:1183:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+
+npm manifest: 
+  {
+    "name": "nuxt-test",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "nuxt"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+      "axios": "^0.19.2",
+      "nuxt": "^2.13.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
