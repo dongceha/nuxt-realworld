@@ -7,6 +7,8 @@ export const register = (data) => request({method: 'post', url: '/api/users', da
 
 export const getArticles = params => request({method: 'get', url: '/api/articles', params})
 
+export const getArticle = slug => request({method: 'get', url: `/api/articles/${slug}`})
+
 export const getTags = () => request({method: 'get', url: '/api/tags'})
 
 export const getYourFeedArticle = params => request({method: 'get', url: '/api/articles/feed', params})
