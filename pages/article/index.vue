@@ -4,7 +4,7 @@
   <div class="banner">
     <div class="container">
       <h1>{{article.title}}</h1>
-      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="user && user.username === article.author.username"/>
+      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="isAuthor"/>
     </div>
   </div>
 
@@ -17,14 +17,14 @@
     <hr />
 
     <div class="article-actions">
-      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="user && user.username === article.author.username"/>
+      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="isAuthor"/>
     </div>
 
     <div class="row">
 
       <div class="col-xs-12 col-md-8 offset-md-2">
 
-        <ArticleComment :article="article"></ArticleComment>
+        <ArticleComment :article="article" :user="user"></ArticleComment>
         
       </div>
 
@@ -69,7 +69,10 @@ export default {
     ArticleComment
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    isAuthor() {
+      return this.user && this.user.username === this.article.author.username
+    }
   },
   head() {
     return {
