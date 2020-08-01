@@ -3,9 +3,8 @@
 
   <div class="banner">
     <div class="container">
-
       <h1>{{article.title}}</h1>
-      <ArticleMeta :article="article" />
+      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="user && user.username === article.author.username"/>
     </div>
   </div>
 
@@ -18,7 +17,7 @@
     <hr />
 
     <div class="article-actions">
-      <ArticleMeta :article="article" />
+      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="user && user.username === article.author.username"/>
     </div>
 
     <div class="row">
@@ -38,11 +37,13 @@
 
 <script>
 import {
-  getArticle
+  getArticle,
+  deleteArticles
 } from '@/api'
 import MarkdownIt from 'markdown-it'
 import ArticleMeta from './components/article-meta'
 import ArticleComment from './components/article-comments'
+import {mapState} from 'vuex'
 
 export default {
   middleware: 'authenticated',
@@ -52,12 +53,23 @@ export default {
     const md = new MarkdownIt()
     article.body = md.render(article.body)
     return {
+      slug: params.slug,
       article
+    }
+  },
+  methods: {
+    handleDelete() {
+      deleteArticles(this.slug).then(() => {
+        this.$router.push('/')
+      })
     }
   },
   components: {
     ArticleMeta,
     ArticleComment
+  },
+  computed: {
+    ...mapState(['user'])
   },
   head() {
     return {

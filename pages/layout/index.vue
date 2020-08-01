@@ -23,8 +23,13 @@
                 </a> -->
             </li>
             <li class="nav-item">
-                <nuxt-link class="nav-link" to="/profile/123">
-                    <img class="user-pic" :src="user.image ? 'http://toutiao.meiduo.site/FtNcS8sKFSYQbtBbd40eFTL6lAs_' : ''" alt="">
+                <nuxt-link class="nav-link" :to="{
+                  name: 'profile',
+                  params: {
+                    username: user.username
+                  }
+                }">
+                    <img class="user-pic" :src="user.image ? user.image : 'http://toutiao.meiduo.site/FtNcS8sKFSYQbtBbd40eFTL6lAs_'" alt="">
                     {{user.username}}
                 </nuxt-link>
                 <!-- <a class="nav-link" href="">Sign up</a> -->
