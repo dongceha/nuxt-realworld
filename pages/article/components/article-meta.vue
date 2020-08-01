@@ -13,7 +13,7 @@
                 username: article.author.username
             }
         }" class="author">{{article.author.username}}</nuxt-link>
-        <span class="date">{{article.createAt | date('MMM DD, YYYY')}}</span>
+        <span class="date">{{article.createAt | data('MMM DD, YYYY')}}</span>
     </div>
     <button
         :class="{active: article.author.following}"

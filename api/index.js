@@ -9,6 +9,8 @@ export const getArticles = params => request({method: 'get', url: '/api/articles
 
 export const getArticle = slug => request({method: 'get', url: `/api/articles/${slug}`})
 
+export const getComments = slug => request({method: 'get', url: `/api/articles/${slug}/comments`})
+
 export const getTags = () => request({method: 'get', url: '/api/tags'})
 
 export const getYourFeedArticle = params => request({method: 'get', url: '/api/articles/feed', params})

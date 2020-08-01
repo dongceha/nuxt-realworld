@@ -4,6 +4,10 @@ module.exports = {
         '~/plugins/request.js',
         '~/plugins/dayjs.js',
     ],
+    server: {
+        host: '0.0.0.0',
+        port: 3000
+    },
     router: { // 自定义路由规则
         linkActiveClass: 'active',
         extendRoutes(routes, resolve) {
