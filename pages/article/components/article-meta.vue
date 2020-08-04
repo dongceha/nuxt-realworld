@@ -17,19 +17,22 @@
     </div>
     <template v-if="!isAuthor">
         <button
+            @click="handleFollow"
             :class="{active: article.author.following}"
             class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
             &nbsp;
-            Follow Eric Simons <span class="counter">(10)</span>
+            {{article.author.following ? 'Follow' : 'unFollow'}}
+            {{article.author.username}}
         </button>
         &nbsp;&nbsp;
         <button
             :class="{active: article.favorited}"
+            @click="handleFavorite"
             class="btn btn-sm btn-outline-primary">
             <i class="ion-heart"></i>
             &nbsp;
-            Favorite Post <span class="counter">(29)</span>
+            {{article.favorited ? 'unFavorite' : 'Favorite'}}  Post <span class="counter">(29)</span>
         </button>
     </template>
     <template v-else>
@@ -73,6 +76,12 @@ export default {
     methods: {
         handleDelete() {
             this.$emit('handleDelete')
+        },
+        handleFollow() {
+            this.$emit('handleFollow')
+        },
+        handleFavorite() {
+            this.$emit('handleFavorite')
         }
     }
 }

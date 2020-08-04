@@ -32,3 +32,7 @@ export const getYourFeedArticle = params => request({method: 'get', url: '/api/a
 export const addFavorite = slug => request({method: 'post', url: `/api/articles/${slug}/favorite`})
 
 export const deleteFavorite = slug => request({method: 'delete', url: `/api/articles/${slug}/favorite`})
+
+export const follow = username => request({method: 'post', url: `/api/profiles/${username}/follow`})
+
+export const unfollow = username => request({method: 'delete', url: `/api/profiles/${username}/follow`})

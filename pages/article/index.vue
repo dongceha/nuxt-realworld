@@ -4,7 +4,12 @@
   <div class="banner">
     <div class="container">
       <h1>{{article.title}}</h1>
-      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="isAuthor"/>
+      <ArticleMeta
+        @handleDelete="handleDelete"
+        @handleFollow="handleFollow"
+        @handleFavorite="handleFavorite"
+        :article="article"
+        :isAuthor="isAuthor"/>
     </div>
   </div>
 
@@ -17,7 +22,11 @@
     <hr />
 
     <div class="article-actions">
-      <ArticleMeta @handleDelete="handleDelete" :article="article" :isAuthor="isAuthor"/>
+      <ArticleMeta
+        @handleDelete="handleDelete"
+        @handleFollow="handleFollow"
+        :article="article"
+        :isAuthor="isAuthor"/>
     </div>
 
     <div class="row">
@@ -38,7 +47,11 @@
 <script>
 import {
   getArticle,
-  deleteArticles
+  deleteArticles,
+  follow,
+  unfollow,
+  addFavorite,
+  deleteFavorite
 } from '@/api'
 import MarkdownIt from 'markdown-it'
 import ArticleMeta from './components/article-meta'
@@ -62,6 +75,29 @@ export default {
       deleteArticles(this.slug).then(() => {
         this.$router.push('/')
       })
+    },
+    async handleFollow() {
+      // console.log(this.article)
+      const following = this.article.author.following;
+      if (following) {
+        await unfollow(this.article.author.username)
+      } else {
+        await follow(this.article.author.username)
+      }
+      this.article.author.following = !following
+    },
+    async handleFavorite() {
+      const favorited = this.article.favorited
+      let res
+      if (favorited) {
+        res = await deleteFavorite(this.article.slug)
+      } else {
+        res = await addFavorite(this.article.slug)
+      }
+      const {data: {article}} = res;
+      const md = new MarkdownIt()
+      article.body = md.render(article.body)
+      this.article = article
     }
   },
   components: {
