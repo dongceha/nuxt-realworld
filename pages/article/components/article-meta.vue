@@ -32,7 +32,7 @@
             class="btn btn-sm btn-outline-primary">
             <i class="ion-heart"></i>
             &nbsp;
-            {{article.favorited ? 'unFavorite' : 'Favorite'}}  Post <span class="counter">(29)</span>
+            {{article.favorited ? 'unFavorite' : 'Favorite'}}  Post <span class="counter">({{article.favoritesCount}}})</span>
         </button>
     </template>
     <template v-else>

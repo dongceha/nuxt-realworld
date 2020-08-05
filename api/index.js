@@ -36,3 +36,5 @@ export const deleteFavorite = slug => request({method: 'delete', url: `/api/arti
 export const follow = username => request({method: 'post', url: `/api/profiles/${username}/follow`})
 
 export const unfollow = username => request({method: 'delete', url: `/api/profiles/${username}/follow`})
+
+export const getProfiles = username => request({method: 'get', url: `/api/profiles/${username}`})

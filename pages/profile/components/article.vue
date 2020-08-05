@@ -16,7 +16,9 @@
             }" class="author">{{article.author.username}}</nuxt-link>
             <span class="date">{{article.createAt | data('MMM DD, YYYY')}}</span>
         </div>
-        <button class="btn btn-outline-primary btn-sm pull-xs-right">
+        <button class="btn btn-outline-primary btn-sm pull-xs-right" :class="{
+            'btn-primary': article.favorited
+        }" @click="handleFavorite">
             <i class="ion-heart"></i> {{article.favoritesCount}}
         </button>
         </div>
@@ -34,11 +36,27 @@
 </template>
 
 <script>
+import {
+  addFavorite,
+  deleteFavorite
+} from '@/api'
 export default {
     props: {
         article: {
             type: Object,
             required: true
+        }
+    },
+    methods: {
+        async handleFavorite() {
+            let article = null
+            if (this.article.favorited) {
+                article = await deleteFavorite(this.article.slug)
+            } else {
+                article = await addFavorite(this.article.slug)
+            }
+            console.log(article)
+            this.$emit('handleFavorite', this.article, article.data.article)
         }
     }
 }

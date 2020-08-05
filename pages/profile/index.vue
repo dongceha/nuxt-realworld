@@ -19,7 +19,15 @@
               Edit Profile Settings
             </nuxt-link>
           </button>
-          <button v-else class="btn btn-sm btn-outline-secondary action-btn">
+          <button v-else-if="following" @click="handleFollow" class="btn btn-sm action-btn ng-binding btn-secondary">
+            <i class="ion-plus-round"></i>
+            &nbsp;
+            Unfollow {{username}} 
+          </button>
+          <button
+            @click="handleFollow"
+            v-else
+            class="btn btn-sm btn-outline-secondary action-btn">
             <i class="ion-plus-round"></i>
             &nbsp;
             Follow {{username}} 
@@ -49,7 +57,7 @@
           </ul>
         </div>
 
-        <Article v-for="article in articles" :article="article" :key="article.slug"></Article>
+        <Article v-for="article in articles" :article="article" :key="article.slug" @handleFavorite="handleFavorite"></Article>
       </div>
 
     </div>
@@ -61,24 +69,29 @@
 <script>
 import {
   getUser,
-  getArticles
+  getArticles,
+  getProfiles,
+  follow,
+  unfollow
 } from '@/api'
 import Article from './components/article'
 import {mapState} from 'vuex'
 export default {
   async asyncData({params}) {
-    const [{data: {user}}, {data: {articles}}] = await Promise.all([
-      getUser(params.username),
+    const [{data: {profile}}, {data: {articles}}] = await Promise.all([
+      getProfiles(params.username),
       getArticles({
         limit: 5,
         offset: 0,
         author: params.username
       })
     ])
+    console.log(profile)
     return {
-      username: user.username,
-      image: user.image,
-      bio: user.bio,
+      username: profile.username,
+      image: profile.image,
+      bio: profile.bio,
+      following: profile.following,
       articles
     }
   },
@@ -101,6 +114,7 @@ export default {
     getFavorite() {
       this.getArticles('favorited')
       this.active = 'favorited'
+      console.log(this.user)
     },
     async getArticles(key) {
       const {data: {articles}} = await getArticles({
@@ -109,6 +123,19 @@ export default {
         [key]: this.username
       });
       this.articles = articles
+    },
+    async handleFollow() {
+      if (this.following) {
+        await unfollow(this.username)
+      } else {
+        await follow(this.username)
+      }
+      this.following = !this.following
+    },
+    handleFavorite(oldarticle, newarticle) {
+      const index = this.articles.findIndex((ar => ar === oldarticle))
+      console.log(index)
+      this.$set(this.articles, index, newarticle)
     }
   }
 }
